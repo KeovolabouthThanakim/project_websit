@@ -1,0 +1,11 @@
+# Cho phép truy cập http://localhost/nau-quiz/ mà không cần gõ /public
+# Mọi đường dẫn đều được chuyển vào public/, nên app/, config/, database/ không thể truy cập trực tiếp
+RewriteEngine On
+# Chuyển http -> https (bỏ qua localhost; chỉ khi cả HTTPS lẫn X-Forwarded-Proto đều không báo https, tránh vòng lặp sau proxy)
+RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1)(:\d+)?$ [NC]
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+RewriteRule ^$ public/ [L]
+RewriteRule ^(?!public/)(.*)$ public/$1 [L]

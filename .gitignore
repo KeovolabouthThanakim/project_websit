@@ -1,0 +1,8 @@
+.DS_Store
+config/config.local.php
+storage/mail/*.txt
+storage/throttle/
+
+uploads/*
+!uploads/.gitkeep
+!uploads/.htaccess
